@@ -13,10 +13,18 @@ app.use((req, res, next) =>{
 });
 
 app.get('/config-file/:name([\\w\\d\\+\\-\\/\\.]+json)', async (req, res) => {
-    console.log('GET config file:' + req.params.name);
-    const file = await gitHubService.getConfigFile(req.params.name);
-    
-    res.send(file);
+    try {
+        console.log('Getting config file: ', req.params.name);
+        const file = await gitHubService.getConfigFile(req.params.name);
+        res
+            .header('Content-Type', 'application/json')
+            .status(200)
+            .send(file);
+    } catch(err) {
+        console.log(
+            `Could not handle request ${req.path}\n\r${err}`
+        )
+    }
 });
 
 app.listen(port, () => {
