@@ -18,7 +18,7 @@ const gitHubService = {
             // Get File Contents
             const result = await octokit.repos.getContents({
                 owner: 'coxmediagroup',
-                repo: 'cmg-app-configs',
+                repo: 'cmg-app-configs-test',
                 path: name,
             });
             // Decode Base64 file contents
